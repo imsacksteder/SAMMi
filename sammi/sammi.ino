@@ -42,9 +42,17 @@ void loop() {
    Serial.print(a);
    Serial.println("cm");
    //Serial.println(a + "cm");
-   delay(0);
+   //delay(0);
 
-   if(a <= STOP_DISTANCE){
+   //delay(500);
+   //forward();
+   //delay(500);
+   //forward();
+   //delay(700);
+    //turnNinty(185);
+   //delay(20000);
+
+   //if(a <= STOP_DISTANCE){
 //      //backward();
 //      for(int i = 0; i < 30; i++){
 //        turnRight();
@@ -53,16 +61,25 @@ void loop() {
 //      turnRight();
       //Serial.println("entering findPath()"); 
       //findPath(a);
-      delay(700);
+      //delay(700);
       //turnRightPass(40);
-      checkDistanceDeriv(a);
+      //checkDistanceDeriv(a);
       //Serial.println("done with turn");
-      delay(700);
-      } else {
-      //Serial.println("entering forward"); 
-      forward();  
-      
-   }
+      //delay(700);
+     // } else {
+      Serial.println("entering forward"); 
+      //for(int i; i< 2000; i++){
+      //  forward();
+      //  forward();
+      //  forward();
+      //  forward();
+      //  forward();
+      //  forward();
+      //  forward();
+      //  forward();  
+      //}
+      runPerimeter(a);
+  // }
    //Serial.println("loop!");
 }
 
@@ -127,7 +144,9 @@ void turnLeft(){
   }
 
 void turnNinty(long stepCount){
-   for(int i=0; i< 40; i++){
+   for(int i=0; i< 20; i++){
+      //myStepper.step(-1);
+      //myStepper2.step(-1);
       myStepper.step(-stepCount);
       myStepper2.step(-stepCount);
    }
@@ -239,3 +258,17 @@ void checkDistanceDeriv(long currentDistance){
         Serial.println("Broke Out of While");
   }
   //}
+
+
+  void runPerimeter(long dist){
+      while(dist > STOP_DISTANCE){
+          dist = sr04.Distance();
+          //for(int i = 0; i < 1000; i++){ //Smoother wheels, but 1000 is waaaay too big
+            forward();
+            if(dist <= STOP_DISTANCE){
+                turnNinty(100);
+                //break;
+              }
+          //}
+        }
+    }
